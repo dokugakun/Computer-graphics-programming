@@ -16,87 +16,87 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->sliderZ, &QSlider::valueChanged, this, &MainWindow::onXYZChanged);
 
     connect(ui->spinX, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderX->setValue(val);
-                    onXYZChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderX->setValue(val);
+            onXYZChanged();
+        }
+    });
     connect(ui->spinY, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderY->setValue(val);
-                    onXYZChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderY->setValue(val);
+            onXYZChanged();
+        }
+    });
     connect(ui->spinZ, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderZ->setValue(val);
-                    onXYZChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderZ->setValue(val);
+            onXYZChanged();
+        }
+    });
 
     connect(ui->sliderL, &QSlider::valueChanged, this, &MainWindow::onLABChanged);
     connect(ui->sliderA, &QSlider::valueChanged, this, &MainWindow::onLABChanged);
     connect(ui->sliderB_lab, &QSlider::valueChanged, this, &MainWindow::onLABChanged);
 
     connect(ui->spinL, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderL->setValue(val);
-                    onLABChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderL->setValue(val);
+            onLABChanged();
+        }
+    });
     connect(ui->spinA, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderA->setValue(val);
-                    onLABChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderA->setValue(val);
+            onLABChanged();
+        }
+    });
     connect(ui->spinB_lab, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderB_lab->setValue(val);
-                    onLABChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderB_lab->setValue(val);
+            onLABChanged();
+        }
+    });
 
     connect(ui->sliderH, &QSlider::valueChanged, this, &MainWindow::onHLSChanged);
     connect(ui->sliderL_hls, &QSlider::valueChanged, this, &MainWindow::onHLSChanged);
     connect(ui->sliderS, &QSlider::valueChanged, this, &MainWindow::onHLSChanged);
 
     connect(ui->spinH, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderH->setValue(val);
-                    onHLSChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderH->setValue(val);
+            onHLSChanged();
+        }
+    });
     connect(ui->spinL_hls, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderL_hls->setValue(val);
-                    onHLSChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderL_hls->setValue(val);
+            onHLSChanged();
+        }
+    });
     connect(ui->spinS, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int val)
-            {
-                if (!isUpdating)
-                {
-                    ui->sliderS->setValue(val);
-                    onHLSChanged();
-                }
-            });
+    {
+        if (!isUpdating)
+        {
+            ui->sliderS->setValue(val);
+            onHLSChanged();
+        }
+    });
 
     updateAll();
 }
