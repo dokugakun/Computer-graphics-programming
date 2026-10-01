@@ -1,0 +1,9 @@
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/lab2_project.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/edit_cache.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/rebuild_cache.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/list_install_components.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/install.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/install/local.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/install/strip.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/lab2_project_autogen_timestamp_deps.dir
+C:/Qt/Qt projects/PKG_labs/lab2/lab2_project/build/Desktop_Qt_6_11_0_MinGW_64_bit-u041eu0442u043bu0430u0434u043au0430/CMakeFiles/lab2_project_autogen.dir
