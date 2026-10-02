@@ -16,10 +16,9 @@ struct ImageMetadata {
     QString compression = "Unknown";
     bool isCorrupted = false;
     QString errorMessage = "OK";
-    QMap<QString, QString> extraInfo; // Дополнительные характеристики для доп. баллов
+    QMap<QString, QString> extraInfo;
 };
 
-// Регистрируем структуру для передачи через сигналы/слоты между потоками
 #include <QMetaType>
 Q_DECLARE_METATYPE(ImageMetadata)
 

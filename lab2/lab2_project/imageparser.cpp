@@ -68,14 +68,14 @@ ImageMetadata ImageParser::parseFile(const QString &filePath) {
     return meta;
 }
 
-// ---------------- PNG PARSER ----------------
+
 ImageMetadata ImageParser::parsePNG(QFile &file, qint64 fileSize, const QString &fileName, const QString &filePath) {
     ImageMetadata meta;
     meta.filename = fileName;
     meta.filepath = filePath;
     meta.formatType = "PNG";
 
-    file.seek(8); // Пропускаем сигнатуру PNG
+    file.seek(8);
     bool hasIEND = false;
 
     while (!file.atEnd()) {
@@ -99,13 +99,13 @@ ImageMetadata ImageParser::parsePNG(QFile &file, qint64 fileSize, const QString 
             uint8_t colorType = static_cast<uint8_t>(data[9]);
 
             int channels = 1;
-            if (colorType == 2) channels = 3;       // RGB
-            else if (colorType == 4) channels = 2;  // Gray + Alpha
-            else if (colorType == 6) channels = 4;  // RGBA
+            if (colorType == 2) channels = 3;
+            else if (colorType == 4) channels = 2;
+            else if (colorType == 6) channels = 4;
 
             meta.colorDepth = bitDepth * channels;
             meta.compression = "Deflate/Inflate (LZ77)";
-            file.seek(file.pos() + length - 13 + 4); // Пропуск данных и CRC
+            file.seek(file.pos() + length - 13 + 4);
         }
         else if (chunkType == "pHYs") {
             QByteArray data = file.read(length);
@@ -113,24 +113,24 @@ ImageMetadata ImageParser::parsePNG(QFile &file, qint64 fileSize, const QString 
                 uint32_t ppuX = readUInt32BE(data.constData());
                 uint32_t ppuY = readUInt32BE(data.constData() + 4);
                 uint8_t unit = static_cast<uint8_t>(data[8]);
-                if (unit == 1) { // 1 = Пикселей на метр
+                if (unit == 1) {
                     meta.dpiX = std::round(ppuX * 0.0254);
                     meta.dpiY = std::round(ppuY * 0.0254);
                 }
             }
-            file.seek(file.pos() + 4); // CRC
+            file.seek(file.pos() + 4);
         }
         else if (chunkType == "IEND") {
             hasIEND = true;
             break;
         } else {
-            file.seek(file.pos() + length + 4); // Пропуск неопознанного чанка
+            file.seek(file.pos() + length + 4);
         }
     }
 
     file.close();
 
-    // Детекция битого файла
+
     if (!hasIEND) {
         meta.isCorrupted = true;
         meta.errorMessage = "Файл поврежден: отсутствует чанк IEND";
@@ -139,14 +139,14 @@ ImageMetadata ImageParser::parsePNG(QFile &file, qint64 fileSize, const QString 
     return meta;
 }
 
-// ---------------- JPEG PARSER ----------------
+
 ImageMetadata ImageParser::parseJPEG(QFile &file, qint64 fileSize, const QString &fileName, const QString &filePath) {
     ImageMetadata meta;
     meta.filename = fileName;
     meta.filepath = filePath;
     meta.formatType = "JPEG";
 
-    // Проверка EOI маркерa FF D9 в самом конце
+
     file.seek(fileSize - 2);
     QByteArray eoi = file.read(2);
     if (eoi != "\xFF\xD9") {
@@ -169,13 +169,13 @@ ImageMetadata ImageParser::parseJPEG(QFile &file, qint64 fileSize, const QString
         if (file.read(markerBuf + 1, 1) < 1) break;
         uchar marker = static_cast<uchar>(markerBuf[1]);
 
-        if (marker == 0xDA) break; // SOS (Start of Scan) - дальше растр
+        if (marker == 0xDA) break;
 
         char lenBytes[2];
         if (file.read(lenBytes, 2) < 2) break;
         uint16_t segLen = readUInt16BE(lenBytes) - 2;
 
-        if (marker == 0xE0) { // APP0 (JFIF)
+        if (marker == 0xE0) {
             QByteArray data = file.read(segLen);
             if (data.size() >= 12 && data.startsWith("JFIF")) {
                 uint8_t units = static_cast<uint8_t>(data[7]);
@@ -185,7 +185,7 @@ ImageMetadata ImageParser::parseJPEG(QFile &file, qint64 fileSize, const QString
                 else if (units == 2) { meta.dpiX = std::round(xDensity * 2.54); meta.dpiY = std::round(yDensity * 2.54); }
             }
         }
-        else if (marker >= 0xC0 && marker <= 0xC2) { // SOF0, SOF1, SOF2
+        else if (marker >= 0xC0 && marker <= 0xC2) {
             QByteArray data = file.read(segLen);
             if (data.size() >= 6) {
                 uint8_t precision = static_cast<uint8_t>(data[0]);
@@ -196,7 +196,7 @@ ImageMetadata ImageParser::parseJPEG(QFile &file, qint64 fileSize, const QString
                 sofFound = true;
             }
         }
-        else if (marker == 0xDB) { // DQT (Матрицы квантования)
+        else if (marker == 0xDB) {
             file.seek(file.pos() + segLen);
             dqtCount++;
         } else {
@@ -219,7 +219,7 @@ ImageMetadata ImageParser::parseJPEG(QFile &file, qint64 fileSize, const QString
     return meta;
 }
 
-// ---------------- BMP PARSER ----------------
+
 ImageMetadata ImageParser::parseBMP(QFile &file, qint64 fileSize, const QString &fileName, const QString &filePath) {
     ImageMetadata meta;
     meta.filename = fileName;
@@ -271,7 +271,7 @@ ImageMetadata ImageParser::parseBMP(QFile &file, qint64 fileSize, const QString 
     return meta;
 }
 
-// ---------------- GIF PARSER ----------------
+
 ImageMetadata ImageParser::parseGIF(QFile &file, qint64 fileSize, const QString &fileName, const QString &filePath) {
     ImageMetadata meta;
     meta.filename = fileName;
@@ -302,7 +302,7 @@ ImageMetadata ImageParser::parseGIF(QFile &file, qint64 fileSize, const QString 
     return meta;
 }
 
-// ---------------- TIFF PARSER ----------------
+
 ImageMetadata ImageParser::parseTIFF(QFile &file, qint64 fileSize, const QString &fileName, const QString &filePath) {
     ImageMetadata meta;
     meta.filename = fileName;
@@ -341,10 +341,10 @@ ImageMetadata ImageParser::parseTIFF(QFile &file, qint64 fileSize, const QString
         uint16_t tag = read16(entry.constData());
         uint32_t val = read32(entry.constData() + 8);
 
-        if (tag == 256) meta.width = val;        // ImageWidth
-        else if (tag == 257) meta.height = val;   // ImageLength
-        else if (tag == 258) meta.colorDepth = val * 3; // BitsPerSample
-        else if (tag == 259) {                   // Compression
+        if (tag == 256) meta.width = val;
+        else if (tag == 257) meta.height = val;
+        else if (tag == 258) meta.colorDepth = val * 3;
+        else if (tag == 259) {
             if (val == 1) meta.compression = "None";
             else if (val == 5) meta.compression = "LZW";
             else if (val == 7) meta.compression = "JPEG";
@@ -356,7 +356,7 @@ ImageMetadata ImageParser::parseTIFF(QFile &file, qint64 fileSize, const QString
     return meta;
 }
 
-// ---------------- PCX PARSER ----------------
+
 ImageMetadata ImageParser::parsePCX(QFile &file, qint64 fileSize, const QString &fileName, const QString &filePath) {
     ImageMetadata meta;
     meta.filename = fileName;

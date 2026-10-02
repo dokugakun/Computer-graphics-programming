@@ -27,7 +27,7 @@ void DirectoryScannerThread::run() {
 
     int processed = 0;
 
-    // Параллельный обход в многопоточном режиме (TPL / ThreadPool)
+
     QtConcurrent::blockingMap(files, [this, &processed, total](const QString &filePath) {
         if (!m_isRunning) return;
 
